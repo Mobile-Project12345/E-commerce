@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".Activities.CustomerHomePage">
 
-
     <EditText
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"
@@ -17,13 +16,6 @@
         android:padding="10dp"
         android:background="@android:drawable/edit_text"
         android:layout_margin="8dp" />
-    <Button
-        android:layout_marginTop="20dp"
-        android:id="@+id/viewCartButton"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:text="View Cart" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="20dp"
@@ -35,15 +27,26 @@
 
     <!-- ListView for products -->
     <ListView
-        android:layout_marginTop="20dp"
         android:id="@+id/productListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="5dp"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp" />
 
-
-
-
+    <Button
+        android:id="@+id/viewCartButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:backgroundTint="#2196F3"
+        android:textColor="@android:color/white"
+        android:text="View Cart" />
 
 </LinearLayout>
