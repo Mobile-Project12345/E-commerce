@@ -18,7 +18,6 @@ public class Product {
         this.Quantity = Quantity;
         this.Image = Image;
     }
-
     public String getName() {
         return Name;
     }

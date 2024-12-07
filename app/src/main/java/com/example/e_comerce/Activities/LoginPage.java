@@ -19,10 +19,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 ///import
-import com.example.e_comerce.DatabaseAccess.DbAdminAccses;
-import com.example.e_comerce.DatabaseAccess.DbCustomerAccses;
-import com.example.e_comerce.DatabaseAccess.RememberedUser;
-import com.example.e_comerce.DatabaseAccess.RememberedListAccess;
+import com.example.e_comerce.DatabaseAccess.AccessingDataBase.DbAccsesAdmin;
+import com.example.e_comerce.DatabaseAccess.AccessingDataBase.DbAccsesCustomer;
+import com.example.e_comerce.DatabaseAccess.AccessingDataBase.RememberedUser;
+import com.example.e_comerce.DatabaseAccess.AccessingDataBase.DbAccessRememberedList;
 import com.example.e_comerce.JavaClasses.SignIn;
 import com.example.e_comerce.JavaClasses.User;
 import com.example.e_comerce.R;
@@ -45,7 +45,7 @@ public class LoginPage extends AppCompatActivity {
     String Email;
     String password;
     User loggedInUser;
-    RememberedListAccess rememberedUserManager;
+    DbAccessRememberedList rememberedUserManager;
     MaterialCheckBox rememberMeCheckbox;
     TextView signUpText;
     int selectedRadioId;
@@ -90,7 +90,7 @@ public class LoginPage extends AppCompatActivity {
 
     private void initializeRememberList() {
         // Initialize the list of credentials
-        rememberedUserManager=new RememberedListAccess(this);
+        rememberedUserManager=new DbAccessRememberedList(this);
         RememberUserList =rememberedUserManager.GetRememberedUsers();
         // Populate usernames list
         if(RememberUserList!=null)
@@ -151,9 +151,9 @@ public class LoginPage extends AppCompatActivity {
             else {
              // Initialize SignIn based on selected user type
             if (selectedRadioId == R.id.CustomerRadioButton) {
-                signIn = new SignIn(new DbCustomerAccses(this));
+                signIn = new SignIn(new DbAccsesCustomer(this));
             } else {
-                signIn = new SignIn(new DbAdminAccses(this));
+                signIn = new SignIn(new DbAccsesAdmin(this));
             }
             SigningIn(signIn,selectedRadioId);}
         } else {

@@ -10,8 +10,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.e_comerce.DatabaseAccess.DbAdminAccses;
-import com.example.e_comerce.DatabaseAccess.DbCustomerAccses;
+import com.example.e_comerce.DatabaseAccess.AccessingDataBase.DbAccsesAdmin;
+import com.example.e_comerce.DatabaseAccess.AccessingDataBase.DbAccsesCustomer;
 import com.example.e_comerce.JavaClasses.EmailSender;
 import com.example.e_comerce.R;
 
@@ -24,8 +24,8 @@ public class ForgetPassword extends AppCompatActivity {
     String verificationCode;
     private TextInputEditText etEmail;
     private MaterialButton btnResetPassword;
-    private DbAdminAccses adminDbAccess;
-    private DbCustomerAccses customerDbAccess;
+    private DbAccsesAdmin adminDbAccess;
+    private DbAccsesCustomer customerDbAccess;
 
     boolean  IsAdmin=false;
     boolean IsCustomer=false;
@@ -43,9 +43,9 @@ public class ForgetPassword extends AppCompatActivity {
         });
 
         // Initialize Database Helper
-        adminDbAccess = new DbAdminAccses(this);
+        adminDbAccess = new DbAccsesAdmin(this);
 
-        customerDbAccess=new DbCustomerAccses(this);
+        customerDbAccess=new DbAccsesCustomer(this);
 
 
         // Initialize Email Input

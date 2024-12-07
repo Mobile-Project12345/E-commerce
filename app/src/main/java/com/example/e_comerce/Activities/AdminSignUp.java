@@ -10,7 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.e_comerce.DatabaseAccess.DbAdminAccses;
+import com.example.e_comerce.DatabaseAccess.AccessingDataBase.DbAccsesAdmin;
 import com.example.e_comerce.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -21,7 +21,7 @@ public class AdminSignUp extends AppCompatActivity {
     private TextInputEditText etPassword;
 
     private MaterialButton btnSignUp;
-    private DbAdminAccses adminDbAccess;
+    private DbAccsesAdmin adminDbAccess;
     String username, password, birthdate, email;
 
 
@@ -51,7 +51,7 @@ public class AdminSignUp extends AppCompatActivity {
         btnSignUp.setOnClickListener(v -> {
             if (validateForm()) {
 
-               adminDbAccess  = new DbAdminAccses(this);
+               adminDbAccess  = new DbAccsesAdmin(this);
                 boolean registrationSuccess = adminDbAccess.registerAdmin(username, email, password);
 
                 if (registrationSuccess) {

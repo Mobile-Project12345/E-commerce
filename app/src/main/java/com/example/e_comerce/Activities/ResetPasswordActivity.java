@@ -4,14 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.e_comerce.DatabaseAccess.DbAdminAccses;
-import com.example.e_comerce.DatabaseAccess.DbCustomerAccses;
+import com.example.e_comerce.DatabaseAccess.AccessingDataBase.DbAccsesAdmin;
+import com.example.e_comerce.DatabaseAccess.AccessingDataBase.DbAccsesCustomer;
 import com.example.e_comerce.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -20,8 +19,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private TextInputEditText etNewPassword, etConfirmPassword;
     private MaterialButton btnResetPassword;
     private String userEmail;
-    private DbAdminAccses adminDbAccess;
-    private DbCustomerAccses customerDbAccess;
+    private DbAccsesAdmin adminDbAccess;
+    private DbAccsesCustomer customerDbAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +35,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
         });
 
         // Initialize Database Helpers
-        adminDbAccess = new DbAdminAccses(this);
-        customerDbAccess = new DbCustomerAccses(this);
+        adminDbAccess = new DbAccsesAdmin(this);
+        customerDbAccess = new DbAccsesCustomer(this);
 
         // Get user email from previous activity
         userEmail = getIntent().getStringExtra("USER_EMAIL");

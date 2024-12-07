@@ -1,8 +1,8 @@
-package com.example.e_comerce.DatabaseAccess;
+package com.example.e_comerce.DatabaseAccess.AccessingDataBase;
 
 import com.example.e_comerce.JavaClasses.User;
 
-public abstract class DbUserAccses {
+public abstract class DbAccsesUser {
 
 
 

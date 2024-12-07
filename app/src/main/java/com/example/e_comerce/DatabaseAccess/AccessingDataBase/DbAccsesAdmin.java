@@ -1,19 +1,20 @@
-package com.example.e_comerce.DatabaseAccess;
+package com.example.e_comerce.DatabaseAccess.AccessingDataBase;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.e_comerce.DatabaseAccess.CreatingDataBase.AdminDatabase;
 import com.example.e_comerce.JavaClasses.Admin;
 
-public class DbAdminAccses extends DbUserAccses {
+public class DbAccsesAdmin extends DbAccsesUser {
 
-    private AdminDatabase dbHelper;
-    private DbCustomerAccses cutomerDbAccess;
+    private final AdminDatabase dbHelper;
+    private DbAccsesCustomer cutomerDbAccess;
     Context context;
 
-    public DbAdminAccses(Context context) {
+    public DbAccsesAdmin(Context context) {
         dbHelper = new AdminDatabase(context);
         this.context=context;
        // Use AdminDatabase as helper class
@@ -21,7 +22,7 @@ public class DbAdminAccses extends DbUserAccses {
 
     // Method to insert a new admin
     public boolean registerAdmin(String username, String email, String password) {
-        cutomerDbAccess=new DbCustomerAccses(context);
+        cutomerDbAccess=new DbAccsesCustomer(context);
         if(cutomerDbAccess.CheckUserExists(email))
             return false;
 

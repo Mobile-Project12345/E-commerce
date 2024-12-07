@@ -1,29 +1,22 @@
-package com.example.e_comerce.DatabaseAccess;
+package com.example.e_comerce.DatabaseAccess.AccessingDataBase;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.e_comerce.JavaClasses.Admin;
+import com.example.e_comerce.DatabaseAccess.CreatingDataBase.RememberMeDataBase;
 import com.example.e_comerce.JavaClasses.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import com.example.e_comerce.JavaClasses.Admin;
-import com.example.e_comerce.JavaClasses.User;
+public class DbAccessRememberedList {
 
-public class RememberedListAccess {
-
-    private RememberMeDataBase dbHelper;
+    private final RememberMeDataBase dbHelper;
     List<RememberedUser> rememberedUsers;
 
-    public RememberedListAccess(Context context) {
+    public DbAccessRememberedList(Context context) {
 
         dbHelper = new RememberMeDataBase(context);
         rememberedUsers=new ArrayList<>();

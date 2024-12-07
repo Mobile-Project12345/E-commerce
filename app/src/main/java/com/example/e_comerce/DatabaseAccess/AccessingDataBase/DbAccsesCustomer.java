@@ -1,20 +1,21 @@
-package com.example.e_comerce.DatabaseAccess;
+package com.example.e_comerce.DatabaseAccess.AccessingDataBase;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.e_comerce.DatabaseAccess.CreatingDataBase.CustomerDatabase;
 import com.example.e_comerce.JavaClasses.Customer;
 import com.example.e_comerce.JavaClasses.date;
 import com.example.e_comerce.JavaClasses.User;
 
-public class DbCustomerAccses extends DbUserAccses {
+public class DbAccsesCustomer extends DbAccsesUser {
     CustomerDatabase dbHelper;
-    DbAdminAccses adminDbAccess;
-    public DbCustomerAccses(Context context) {
+    DbAccsesAdmin adminDbAccess;
+    public DbAccsesCustomer(Context context) {
         this.dbHelper = new CustomerDatabase(context);
-        adminDbAccess=new DbAdminAccses(context);
+        adminDbAccess=new DbAccsesAdmin(context);
     }
 
     // Register a new customer

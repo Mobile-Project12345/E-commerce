@@ -10,7 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.e_comerce.DatabaseAccess.DbCustomerAccses;
+import com.example.e_comerce.DatabaseAccess.AccessingDataBase.DbAccsesCustomer;
 import com.example.e_comerce.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -26,7 +26,7 @@ public class CustomerSignUp extends AppCompatActivity {
     private TextInputEditText etPassword;
     private TextInputEditText etBirthdate;
     private MaterialButton btnSignUp;
-    private DbCustomerAccses customerDbAccess;
+    private DbAccsesCustomer customerDbAccess;
     String username,password,birthdate,email;
 
 
@@ -81,7 +81,7 @@ public class CustomerSignUp extends AppCompatActivity {
     private void setupSignUpButton() {
         btnSignUp.setOnClickListener(v -> {
             if (validateForm()) {
-                customerDbAccess=new DbCustomerAccses(this);
+                customerDbAccess=new DbAccsesCustomer(this);
                 boolean registrationSuccess = customerDbAccess.registerCustomer(username, email, password, birthdate);
 
                 if (registrationSuccess) {

@@ -1,4 +1,4 @@
-package com.example.e_comerce.DatabaseAccess;
+package com.example.e_comerce.DatabaseAccess.CreatingDataBase;
 
 
 import android.content.Context;
