@@ -37,6 +37,7 @@ public class AdminHomePage extends AppCompatActivity {
     private admin_prduct_Adapter productAdapter;
     private List<Category> ListOfCateogry;
     Button addProduct;
+    Button genreatereport;
 DbAccsessCategory dbAccessProduct;
 
     @Override
@@ -56,6 +57,15 @@ DbAccsessCategory dbAccessProduct;
 
 
         addProduct=findViewById(R.id.Add_product);
+        genreatereport=findViewById(R.id.generate_report);
+        genreatereport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent rep_intent = new Intent(AdminHomePage.this, report_generate.class);
+                startActivity(rep_intent);
+                //finish();
+            }
+        });
 
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +128,8 @@ DbAccsessCategory dbAccessProduct;
         }
 
     }
+
+
 
     private void updateProductList(List<Product> products) {
         productAdapter = new admin_prduct_Adapter(this, products);
