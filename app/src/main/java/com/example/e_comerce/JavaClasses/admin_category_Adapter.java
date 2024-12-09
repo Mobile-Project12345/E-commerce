@@ -14,7 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.e_comerce.Activities.AdminHomePage;
+import com.example.e_comerce.Activities.ManageCateogry;
 import com.example.e_comerce.Activities.edit_category;
+import com.example.e_comerce.DatabaseAccess.DbAccessProduct;
+import com.example.e_comerce.DatabaseAccess.DbAccsessCategory;
 import com.example.e_comerce.R;
 
 import java.util.List;
@@ -75,7 +79,13 @@ public class admin_category_Adapter extends BaseAdapter {
         deletecategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "delete " + category.name, Toast.LENGTH_SHORT).show();
+                DbAccsessCategory dbAccsessCategory=new DbAccsessCategory(context);
+                dbAccsessCategory.deleteCategory(category.id);
+                Toast.makeText(context, category.name+" is deleted", Toast.LENGTH_SHORT).show();
+                Intent temp_intent = new Intent(context, AdminHomePage.class);
+
+                context.startActivity(temp_intent);
+                Toast.makeText(context,  category.name+" deleted " , Toast.LENGTH_SHORT).show();
             }
         });
 

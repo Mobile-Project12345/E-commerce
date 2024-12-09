@@ -304,4 +304,34 @@ public class DbAccsessCategory {
         return productsList;
     }
 
+    public boolean deleteCategory(int categoryId) {
+        try {
+            // Open the database in write mode
+            SQLiteDatabase db = categoryDatabase.getWritableDatabase();
+
+            // First, delete all products associated with this category
+            int productsDeleted = db.delete(
+                    ProductDatabase.TABLE_PRODUCTS,
+                    ProductDatabase.COLUMN_CATEGORY_ID + " = ?",
+                    new String[]{String.valueOf(categoryId)}
+            );
+            Log.d(TAG, "Products deleted with category: " + productsDeleted);
+
+            // Then delete the category itself
+            int categoryRowsAffected = db.delete(
+                    CategoryDatabase.TABLE_CATEGORIES,      // Table name
+                    CategoryDatabase.COLUMN_ID + " = ?",    // Where clause
+                    new String[]{String.valueOf(categoryId)} // Arguments
+            );
+
+            // Close the database
+            db.close();
+
+            // Return true if a category was deleted
+            return categoryRowsAffected > 0;
+        } catch (Exception e) {
+            Log.e(TAG, "Error deleting category with ID: " + categoryId, e);
+            return false;
+        }
+    }
 }
