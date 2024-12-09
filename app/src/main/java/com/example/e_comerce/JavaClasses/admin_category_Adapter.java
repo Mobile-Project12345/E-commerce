@@ -1,14 +1,20 @@
 package com.example.e_comerce.JavaClasses;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.e_comerce.Activities.edit_category;
 import com.example.e_comerce.R;
 
 import java.util.List;
@@ -52,7 +58,7 @@ public class admin_category_Adapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Category category = categoryList.get(position);
+        Category category = categoryList.get(position);//name
 
         // Set category image
         Bitmap imageBitmap = category.getImageBitmap();
@@ -62,6 +68,31 @@ public class admin_category_Adapter extends BaseAdapter {
 
         // Set category name
         holder.categoryName.setText(category.getName());
+
+        Button editcategory = convertView.findViewById(R.id.edit_product);
+        Button deletecategory = convertView.findViewById(R.id.delete_product);
+
+        deletecategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "delete " + category.name, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        editcategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent temp_intent = new Intent(context, edit_category.class);
+                temp_intent.putExtra("id",category.id);
+                temp_intent.putExtra("name",category.name);
+                /// temp_intent.putExtra("image",category.imageBitmap);
+                context.startActivity(temp_intent);
+
+            }
+        });
+
+
+
 
         return convertView;
     }

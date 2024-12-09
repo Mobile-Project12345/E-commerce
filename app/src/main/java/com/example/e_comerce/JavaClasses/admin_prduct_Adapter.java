@@ -1,6 +1,10 @@
 package com.example.e_comerce.JavaClasses;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.e_comerce.Activities.edit_category;
+import com.example.e_comerce.Activities.edit_product;
 import com.example.e_comerce.R;
 
 import java.util.List;
@@ -49,8 +56,34 @@ public class admin_prduct_Adapter extends ArrayAdapter<Product> {
         productPrice.setText(String.format("$%.2f", product.getCost()));  // Set price
 
 
+       deleteproduct.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Toast.makeText(context, "delete"+product.Name, Toast.LENGTH_SHORT).show();
+           }
+       });
+
+        editprodyct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent temp_intent = new Intent(context, edit_category.class);
+                temp_intent.putExtra("id",product.Id);
+                temp_intent.putExtra("name",product.Name);
+                temp_intent.putExtra("cost",product.Cost);
+                temp_intent.putExtra("quantity",product.Quantity);
+                /// temp_intent.putExtra("image",product.Image);
+                context.startActivity(temp_intent);
+            }
+        });
+
+
+
+
+
 
         return convertView;
     }
+
+
 
 }

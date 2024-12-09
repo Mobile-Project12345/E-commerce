@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +47,8 @@ public class CustomerHomePage extends AppCompatActivity {
             return insets;
         });
 
+
+
         RecyclerView categoryRecyclerView = findViewById(R.id.categoryRecyclerView);
         productListView = findViewById(R.id.productListView);
         searchEditText = findViewById(R.id.searchEditText);
@@ -53,18 +56,31 @@ public class CustomerHomePage extends AppCompatActivity {
 
         ListOfCateogry=  dbAccessProduct.getAllCategoriesWithProducts();
 
-        // Set up category RecyclerView
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this, ListOfCateogry, position -> {
-            // Show products for the selected category
-            List<Product> selectedProducts = ListOfCateogry.get(position).Products;
-            updateProductList(selectedProducts);
-        });
 
-        categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        categoryRecyclerView.setAdapter(categoryAdapter);
+        if(ListOfCateogry.isEmpty())
+        {
 
-        // Set initial product list to the first category
-        updateProductList(ListOfCateogry.get(0).Products);
+            Toast.makeText(CustomerHomePage.this, "is empty ", Toast.LENGTH_SHORT).show();
+
+        }
+        else
+        {
+            // Set up category RecyclerView
+            CategoryAdapter categoryAdapter = new CategoryAdapter(this, ListOfCateogry, position -> {
+                // Show products for the selected category
+                List<Product> selectedProducts = ListOfCateogry.get(position).Products;
+                updateProductList(selectedProducts);
+            });
+
+            categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            categoryRecyclerView.setAdapter(categoryAdapter);
+
+            // Set initial product list to the first category
+
+            updateProductList(ListOfCateogry.get(0).Products);
+
+        }
+
 
         // Set up search functionality
         searchEditText.addTextChangedListener(new TextWatcher() {

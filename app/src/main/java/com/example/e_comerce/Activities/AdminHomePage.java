@@ -96,19 +96,26 @@ DbAccsessCategory dbAccessProduct;
 
 
 
-        // Set up category RecyclerView
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this, ListOfCateogry, position -> {
-            // Show products for the selected category
-            List<Product> selectedProducts = ListOfCateogry.get(position).Products;
-            updateProductList(selectedProducts);
-        });
+        if(ListOfCateogry.isEmpty())
+        {
 
-        categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        categoryRecyclerView.setAdapter(categoryAdapter);
+            Toast.makeText(AdminHomePage.this, "is empty ", Toast.LENGTH_SHORT).show();
 
-        // Set initial product list to the first category
-        updateProductList(ListOfCateogry.get(0).Products);
+        }
+        else {
+            // Set up category RecyclerView
+            CategoryAdapter categoryAdapter = new CategoryAdapter(this, ListOfCateogry, position -> {
+                // Show products for the selected category
+                List<Product> selectedProducts = ListOfCateogry.get(position).Products;
+                updateProductList(selectedProducts);
+            });
 
+            categoryRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            categoryRecyclerView.setAdapter(categoryAdapter);
+
+            // Set initial product list to the first category
+            updateProductList(ListOfCateogry.get(0).Products);
+        }
 
     }
 
