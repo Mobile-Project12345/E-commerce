@@ -16,6 +16,9 @@
         android:theme="@style/Theme.E_comerce"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.EditProduct"
+            android:exported="false" />
+        <activity
             android:name=".Activities.report_generate"
             android:exported="false" />
         <activity

@@ -224,10 +224,44 @@ public class DbAccessProduct {
         }
     }
 
+    public void UpdateProduct(Product updatedProduct) {
+        try {
+            // Open the database in write mode
+            db = productDatabase.getWritableDatabase();
 
+            // Create a ContentValues object to store the updated values
+            ContentValues values = new ContentValues();
+            values.put(ProductDatabase.COLUMN_NAME, updatedProduct.getName());
+            values.put(ProductDatabase.COLUMN_PRICE, updatedProduct.getCost());
+            values.put(ProductDatabase.COLUMN_QUANTITY, updatedProduct.getQuantity());
 
+            // Convert bitmap to byte array and add to values
+            byte[] imageBytes = bitmapToByteArray(updatedProduct.getImage());
+            values.put(ProductDatabase.COLUMN_IMAGE, imageBytes);
 
+            // Update the product in the database
+            // The where clause specifies which row to update based on the product ID
+            int rowsAffected = db.update(
+                    ProductDatabase.TABLE_PRODUCTS,  // Table name
+                    values,                          // New values
+                    ProductDatabase.COLUMN_ID + " = ?",  // Where clause
+                    new String[]{String.valueOf(updatedProduct.getId())}  // Where arguments
+            );
 
-
+            // Log the result
+            if (rowsAffected > 0) {
+                Log.d(TAG, "Product updated successfully. Rows affected: " + rowsAffected);
+            } else {
+                Log.d(TAG, "No product found with ID: " + updatedProduct.getId());
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error updating product", e);
+        } finally {
+            // Ensure database is closed
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
+        }
+    }
 
 }

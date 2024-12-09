@@ -5,6 +5,7 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.example.e_comerce.Activities.report_generate;
 import com.example.e_comerce.DatabaseAccess.DbAccessProduct;
 import com.example.e_comerce.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class admin_prduct_Adapter extends ArrayAdapter<Product> {
@@ -77,12 +79,20 @@ public class admin_prduct_Adapter extends ArrayAdapter<Product> {
         editprodyct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent temp_intent = new Intent(context, edit_category.class);
-                temp_intent.putExtra("id",product.Id);
-                temp_intent.putExtra("name",product.Name);
-                temp_intent.putExtra("cost",product.Cost);
-                temp_intent.putExtra("quantity",product.Quantity);
-                /// temp_intent.putExtra("image",product.Image);
+                Intent temp_intent = new Intent(context, edit_product.class);
+
+                // Pass product details via intent extras
+                temp_intent.putExtra("PRODUCT_ID", product.getId());
+                temp_intent.putExtra("PRODUCT_NAME", product.getName());
+                temp_intent.putExtra("PRODUCT_COST", product.getCost());
+                temp_intent.putExtra("PRODUCT_QUANTITY", product.getQuantity());
+
+                // Convert Bitmap to byte array to pass in intent
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                product.getImage().compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                temp_intent.putExtra("PRODUCT_IMAGE", byteArray);
+
                 context.startActivity(temp_intent);
             }
         });

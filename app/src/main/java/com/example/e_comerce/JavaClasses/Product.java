@@ -2,7 +2,9 @@ package com.example.e_comerce.JavaClasses;
 
 import android.graphics.Bitmap;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
 
     public String Name;
     public Double Cost;
