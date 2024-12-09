@@ -28,6 +28,29 @@ public class DbAccessProduct {
         productDatabase = new ProductDatabase(context);
     }
 
+    public boolean deleteProduct(int productId) {
+        try {
+            // Open the database in write mode
+            SQLiteDatabase db = productDatabase.getWritableDatabase();
+
+            // Delete the product with the specified ID
+            int rowsAffected = db.delete(
+                    ProductDatabase.TABLE_PRODUCTS,      // Table name
+                    ProductDatabase.COLUMN_ID + " = ?",  // Where clause
+                    new String[]{String.valueOf(productId)} // Arguments
+            );
+
+            // Close the database
+            db.close();
+
+            // Return true if a row was deleted, false otherwise
+            return rowsAffected > 0;
+        } catch (Exception e) {
+            Log.e(TAG, "Error deleting product with ID: " + productId, e);
+            return false;
+        }
+    }
+
     // Method to convert Bitmap to byte array
     private byte[] bitmapToByteArray(Bitmap bitmap) {
         if (bitmap == null) return null;

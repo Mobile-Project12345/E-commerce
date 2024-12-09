@@ -14,8 +14,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.e_comerce.Activities.AdminHomePage;
 import com.example.e_comerce.Activities.edit_category;
 import com.example.e_comerce.Activities.edit_product;
+import com.example.e_comerce.Activities.report_generate;
+import com.example.e_comerce.DatabaseAccess.DbAccessProduct;
 import com.example.e_comerce.R;
 
 import java.util.List;
@@ -59,7 +62,15 @@ public class admin_prduct_Adapter extends ArrayAdapter<Product> {
        deleteproduct.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Toast.makeText(context, "delete"+product.Name, Toast.LENGTH_SHORT).show();
+
+               DbAccessProduct dbAccessProduct=new DbAccessProduct(context);
+               dbAccessProduct.deleteProduct(product.Id);
+               Toast.makeText(context, product.Name+" is deleted", Toast.LENGTH_SHORT).show();
+               Intent temp_intent = new Intent(context, AdminHomePage.class);
+
+               context.startActivity(temp_intent);
+
+
            }
        });
 
