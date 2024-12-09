@@ -19,12 +19,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 ///import
+import com.example.e_comerce.DatabaseAccess.DbAccsessTransaction;
 import com.example.e_comerce.DatabaseAccess.DbAdminAccses;
 import com.example.e_comerce.DatabaseAccess.DbCustomerAccses;
 import com.example.e_comerce.DatabaseAccess.RememberedUser;
 import com.example.e_comerce.DatabaseAccess.RememberedListAccess;
 import com.example.e_comerce.JavaClasses.SignIn;
 import com.example.e_comerce.JavaClasses.User;
+import com.example.e_comerce.JavaClasses.transaction;
 import com.example.e_comerce.R;
 import com.google.android.material.checkbox.MaterialCheckBox;
 
@@ -50,6 +52,8 @@ public class LoginPage extends AppCompatActivity {
     TextView signUpText;
     int selectedRadioId;
     TextView ForgetPasswordText;
+
+
 
 
     @Override

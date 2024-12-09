@@ -8,7 +8,13 @@ public class Category {
     public String name;
     public List<Product> Products;
     public Bitmap imageBitmap;
+    public  int id;
 
+    public Category()
+    {
+
+
+    }
     public Category(String Name,List<Product>products,   Bitmap Image)
     {
         this.name=Name;

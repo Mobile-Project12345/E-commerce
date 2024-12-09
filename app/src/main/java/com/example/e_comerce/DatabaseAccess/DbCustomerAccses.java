@@ -12,16 +12,61 @@ import com.example.e_comerce.JavaClasses.User;
 public class DbCustomerAccses extends DbUserAccses {
     CustomerDatabase dbHelper;
     DbAdminAccses adminDbAccess;
+
     public DbCustomerAccses(Context context) {
         this.dbHelper = new CustomerDatabase(context);
-        adminDbAccess=new DbAdminAccses(context);
+        adminDbAccess = new DbAdminAccses(context);
     }
 
-    // Register a new customer
-    public boolean registerCustomer(String username, String email, String password, String birthdate) {
+    // New method to get Customer by ID
+    public Customer getCustomerById(int userId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Customer customer = null;
 
+        // Query to find customer by ID
+        String query = "SELECT * FROM " + CustomerDatabase.TABLE_CUSTOMERS +
+                " WHERE " + CustomerDatabase.COLUMN_ID + " = ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+        if (cursor.moveToFirst()) {
+            // Retrieve column indices
+            int usernameIndex = cursor.getColumnIndexOrThrow(CustomerDatabase.COLUMN_USERNAME);
+            int emailIndex = cursor.getColumnIndexOrThrow(CustomerDatabase.COLUMN_EMAIL);
+            int passwordIndex = cursor.getColumnIndexOrThrow(CustomerDatabase.COLUMN_PASSWORD);
+            int birthdateIndex = cursor.getColumnIndexOrThrow(CustomerDatabase.COLUMN_BIRTHDATE);
+
+            // Extract data from cursor
+            String username = cursor.getString(usernameIndex);
+            String email = cursor.getString(emailIndex);
+            String password = cursor.getString(passwordIndex);
+            String birthdateStr = cursor.getString(birthdateIndex);
+
+            // Parse birthdate string into day, month, and year
+            String[] dateParts = birthdateStr.split("/");
+            int day = Integer.parseInt(dateParts[0]);
+            int month = Integer.parseInt(dateParts[1]);
+            int year = Integer.parseInt(dateParts[2]);
+
+            // Create the date object
+            date birthdate = new date(day, month, year);
+
+            // Create and populate Customer object
+            customer = new Customer(username, email, password, birthdate);
+        }
+
+        // Close cursor and database
+        cursor.close();
+        db.close();
+
+        return customer;  // Returns null if no customer found with the given ID
+    }
+
+    // Existing methods remain the same...
+    public boolean registerCustomer(String username, String email, String password, String birthdate) {
         if (adminDbAccess.CheckUserExists(email))
-            return  false;
+            return false;
+
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(CustomerDatabase.COLUMN_USERNAME, username);
@@ -32,31 +77,26 @@ public class DbCustomerAccses extends DbUserAccses {
         long result = db.insert(CustomerDatabase.TABLE_CUSTOMERS, null, values);
         db.close();
 
-        // Return true if insertion was successful, false otherwise
         return result != -1;
     }
-    // Check if user exists
+
     public boolean CheckUserExists(String email) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        // Query to check for admin using email
         String query = "SELECT * FROM " + CustomerDatabase.TABLE_CUSTOMERS +
                 " WHERE " + CustomerDatabase.COLUMN_EMAIL + " = ?";
 
-        // Execute the query with the provided email
         Cursor cursor = db.rawQuery(query, new String[]{email});
 
-        // Check if a matching record exists
         boolean exists = cursor.moveToFirst();
 
-        // Close the cursor and database
         cursor.close();
         db.close();
 
-        return exists;  // Return true if admin with email exists, false otherwise
+        return exists;
     }
+
     public User CheckUserExists(String email, String password) {
-       //DeleteAllRememberedUsers();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String query = "SELECT * FROM " + CustomerDatabase.TABLE_CUSTOMERS +
                 " WHERE " + CustomerDatabase.COLUMN_EMAIL + " = ? AND " +
@@ -85,37 +125,24 @@ public class DbCustomerAccses extends DbUserAccses {
         cursor.close();
         db.close();
 
-        return customer;  // Returns null if user does not exist
+        return customer;
     }
 
     public boolean updatePassword(String userEmail, String newPassword) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        // Prepare the content values with new password
         ContentValues values = new ContentValues();
         values.put(CustomerDatabase.COLUMN_PASSWORD, newPassword);
 
-        // Update the password where email matches
         int rowsAffected = db.update(
-                CustomerDatabase.TABLE_CUSTOMERS,  // Table name
-                values,                            // New values to update
-                CustomerDatabase.COLUMN_EMAIL + " = ?",  // Where clause
-                new String[]{userEmail}            // Where arguments
+                CustomerDatabase.TABLE_CUSTOMERS,
+                values,
+                CustomerDatabase.COLUMN_EMAIL + " = ?",
+                new String[]{userEmail}
         );
 
-        // Close the database
         db.close();
 
-        // Return true if at least one row was updated
         return rowsAffected > 0;
     }
-
-
-  /* public void DeleteAllRememberedUsers() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(CustomerDatabase.TABLE_CUSTOMERS, null, null); // Deletes all rows
-        db.close();
-    }*/
-
-
 }

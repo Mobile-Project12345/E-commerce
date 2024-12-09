@@ -11,6 +11,10 @@ public class Product {
     public Bitmap Image;  // Store the image as Bitmap
 
     // Constructor to initialize all fields
+    public Product() {
+
+    }
+    // Constructor to initialize all fields
     public Product(int Id, String Name, Double Cost, int Quantity, Bitmap Image) {
         this.Id = Id;
         this.Name = Name;
