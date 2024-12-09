@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:padding="30dp"
+    android:orientation="vertical"
+tools:context=".Activities.report_generate">
+
+    <EditText
+        android:hint="date(yyyy-mm-dd) like 2024-01-09"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:id="@+id/date"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="generate"
+        android:id="@+id/generate_report_button"/>
+
+<!-- Transactions RecyclerView -->
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/transactions_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.report_generate">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_marginTop="16dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+</LinearLayout>

@@ -38,6 +38,7 @@ public class AdminHomePage extends AppCompatActivity {
     private List<Category> ListOfCateogry;
     Button addProduct;
     Button genreatereport;
+
 DbAccsessCategory dbAccessProduct;
 
     @Override
@@ -57,7 +58,9 @@ DbAccsessCategory dbAccessProduct;
 
 
         addProduct=findViewById(R.id.Add_product);
+
         genreatereport=findViewById(R.id.generate_report);
+
         genreatereport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
