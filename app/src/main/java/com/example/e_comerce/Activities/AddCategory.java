@@ -106,8 +106,13 @@ long addcateogry=dbAccsessCategory.addCategory(categoryName,selectedImageBitmap)
             Toast.makeText(this, "Failed Category is  exists", Toast.LENGTH_SHORT).show();
 
         }
-        else   Toast.makeText(this, "Category saved successfully!", Toast.LENGTH_SHORT).show();
+        else {
 
+            Toast.makeText(this, "Category saved successfully!", Toast.LENGTH_SHORT).show();
+            Intent man_intent = new Intent(AddCategory.this, ManageCateogry.class);
+            startActivity(man_intent);
+            finish();
+        }
 
     }
 }

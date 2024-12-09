@@ -167,7 +167,9 @@ public class AddProduct extends AppCompatActivity {
 
             // Show toast
             Toast.makeText(this, "Added Succesfully", Toast.LENGTH_LONG).show();
-           finish();
+            Intent man_intent = new Intent(AddProduct.this, AdminHomePage.class);
+            startActivity(man_intent);
+            finish();
         });
     }
 

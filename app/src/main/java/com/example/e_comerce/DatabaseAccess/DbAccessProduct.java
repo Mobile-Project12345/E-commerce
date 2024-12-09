@@ -14,6 +14,8 @@ import com.example.e_comerce.JavaClasses.Category;
 import com.example.e_comerce.JavaClasses.Product;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DbAccessProduct {
     private static final String TAG = "DbAccessProduct";
@@ -112,11 +114,97 @@ public class DbAccessProduct {
             }
         }
     }
+    public List<Object[]> getAllProductsWithCategories() {
+        List<Object[]> productsList = new ArrayList<>();
+        SQLiteDatabase db = productDatabase.getReadableDatabase();
 
+        try {
+            // SQL query to join products and categories tables
+            String query = "SELECT " +
+                    // Product columns
+                    "p." + ProductDatabase.COLUMN_ID + " AS product_id, " +
+                    "p." + ProductDatabase.COLUMN_NAME + " AS product_name, " +
+                    "p." + ProductDatabase.COLUMN_PRICE + " AS product_price, " +
+                    "p." + ProductDatabase.COLUMN_QUANTITY + " AS product_quantity, " +
+                    "p." + ProductDatabase.COLUMN_IMAGE + " AS product_image, " +
+
+                    // Category columns
+                    "c." + CategoryDatabase.COLUMN_ID + " AS category_id, " +
+                    "c." + CategoryDatabase.COLUMN_NAME + " AS category_name, " +
+                    "c." + CategoryDatabase.COLUMN_IMAGE + " AS category_image " +
+
+                    // Join condition
+                    "FROM " + ProductDatabase.TABLE_PRODUCTS + " p " +
+                    "LEFT JOIN " + CategoryDatabase.TABLE_CATEGORIES + " c " +
+                    "ON p." + ProductDatabase.COLUMN_CATEGORY_ID + " = c." + CategoryDatabase.COLUMN_ID;
+
+            Cursor cursor = db.rawQuery(query, null);
+
+            // Check if cursor has results
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    // Retrieve product details
+                    int productId = cursor.getInt(cursor.getColumnIndexOrThrow("product_id"));
+                    String productName = cursor.getString(cursor.getColumnIndexOrThrow("product_name"));
+                    double productPrice = cursor.getDouble(cursor.getColumnIndexOrThrow("product_price"));
+                    int productQuantity = cursor.getInt(cursor.getColumnIndexOrThrow("product_quantity"));
+
+                    // Retrieve product image
+                    Bitmap productImage = null;
+                    byte[] productImageBytes = cursor.getBlob(cursor.getColumnIndexOrThrow("product_image"));
+                    if (productImageBytes != null) {
+                        productImage = BitmapFactory.decodeByteArray(productImageBytes, 0, productImageBytes.length);
+                    }
+
+                    // Retrieve category details
+                    int categoryId = cursor.getInt(cursor.getColumnIndexOrThrow("category_id"));
+                    String categoryName = cursor.getString(cursor.getColumnIndexOrThrow("category_name"));
+
+                    // Retrieve category image
+                    Bitmap categoryImage = null;
+                    byte[] categoryImageBytes = cursor.getBlob(cursor.getColumnIndexOrThrow("category_image"));
+                    if (categoryImageBytes != null) {
+                        categoryImage = BitmapFactory.decodeByteArray(categoryImageBytes, 0, categoryImageBytes.length);
+                    }
+
+                    // Create an array to hold all retrieved information
+                    Object[] productInfo = new Object[]{
+                            productId,
+                            productName,
+                            productPrice,
+                            productQuantity,
+                            productImage,
+                            categoryId,
+                            categoryName,
+                            categoryImage
+                    };
+
+                    productsList.add(productInfo);
+                } while (cursor.moveToNext());
+
+                cursor.close();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error retrieving products with categories", e);
+        } finally {
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
+        }
+
+        return productsList;
+    }
     // Optional: Close database connection when done
     public void closeDatabase() {
         if (db != null && db.isOpen()) {
             db.close();
         }
     }
+
+
+
+
+
+
+
 }

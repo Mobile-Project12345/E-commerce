@@ -15,6 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.e_comerce.DatabaseAccess.DbAccsessCategory;
 import com.example.e_comerce.JavaClasses.Category;
 import com.example.e_comerce.JavaClasses.CategoryAdapter;
 import com.example.e_comerce.JavaClasses.Product;
@@ -65,15 +66,8 @@ public class ManageCateogry extends AppCompatActivity {
 
 
 
-        Bitmap bitmapcat1book = BitmapFactory.decodeResource(getResources(), R.drawable.books);
-        Bitmap bitmapcat2elect = BitmapFactory.decodeResource(getResources(), R.drawable.electronics);
-        Bitmap bitmapcat2shoes = BitmapFactory.decodeResource(getResources(), R.drawable.shoes);
-
-        // Create category list
-        ListOfCateogry = new ArrayList<>();
-        ListOfCateogry.add(new Category("Books", null, bitmapcat1book));
-        ListOfCateogry.add(new Category("Electronics", null, bitmapcat2elect));
-        ListOfCateogry.add(new Category("Shoes", null, bitmapcat2shoes));
+      DbAccsessCategory dbAccsessCategory=new DbAccsessCategory(this);
+        ListOfCateogry=dbAccsessCategory.getAllCategoriesWithProducts();
 
         // Set up adapter and attach to ListView
         categoryAdapter = new admin_category_Adapter(this, ListOfCateogry);
