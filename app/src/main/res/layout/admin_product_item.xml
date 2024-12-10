@@ -35,44 +35,14 @@
             android:textSize="24sp"
             android:textColor="@android:color/darker_gray" />
 
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/increment"
-                android:layout_width="30dp"
-                android:layout_height="40dp"
-                android:backgroundTint="#131414"
-                android:text="+"
-                android:textSize="16sp"
-                android:padding="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
+        <TextView
+            android:id="@+id/productquntity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@android:color/darker_gray" />
 
 
-            <TextView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:text="1"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:id="@+id/quantity"/>
-
-            <Button
-                android:id="@+id/decrement"
-                android:layout_width="30dp"
-                android:layout_height="40dp"
-                android:backgroundTint="#131414"
-                android:textSize="20dp"
-                android:text="-"
-                android:padding="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp"/>
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="180dp"
