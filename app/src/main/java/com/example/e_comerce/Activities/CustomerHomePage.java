@@ -1,15 +1,22 @@
 package com.example.e_comerce.Activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,9 +30,11 @@ import com.example.e_comerce.JavaClasses.CategoryAdapter;
 import com.example.e_comerce.JavaClasses.Product;
 import com.example.e_comerce.JavaClasses.ProductAdapter;
 import com.example.e_comerce.R;
+import com.journeyapps.barcodescanner.CaptureActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class CustomerHomePage extends AppCompatActivity {
 
@@ -35,6 +44,8 @@ public class CustomerHomePage extends AppCompatActivity {
     private ProductAdapter productAdapter;
     private List<Category> ListOfCateogry;
     private EditText searchEditText;
+
+    private static final int SPEECH_REQUEST_CODE = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +58,35 @@ public class CustomerHomePage extends AppCompatActivity {
             return insets;
         });
 
+        /// barcode
+
+        Button btnbarcode=findViewById(R.id.barcode);
+
+        ActivityResultLauncher<Intent> barcodeLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        String scannedBarcode = result.getData().getStringExtra("SCAN_RESULT");
+                        //dd.setText(scannedBarcode);
+                        filterProducts(scannedBarcode);
+
+                    }
+                });
+
+        btnbarcode.setOnClickListener(v -> {
+            Intent intent = new Intent(CustomerHomePage.this, CaptureActivity.class);
+            barcodeLauncher.launch(intent);
+        });
+
+
+
+        Button btnSpeak=findViewById(R.id.voice);
+        btnSpeak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSpeechRecognition();
+            }
+        });
 
 
         RecyclerView categoryRecyclerView = findViewById(R.id.categoryRecyclerView);
@@ -80,6 +120,14 @@ public class CustomerHomePage extends AppCompatActivity {
             updateProductList(ListOfCateogry.get(0).Products);
 
         }
+
+        searchEditText.setFocusable(false); // Initially non-focusable
+
+        searchEditText.setOnClickListener(v -> {
+            searchEditText.setFocusableInTouchMode(true); // Enable focus
+            searchEditText.setFocusable(true); // Allow typing
+            searchEditText.requestFocus(); // Request focus to open the keyboard
+        });
 
 
         // Set up search functionality
@@ -120,5 +168,31 @@ public class CustomerHomePage extends AppCompatActivity {
         updateProductList(filteredProducts); // Update the ListView with filtered results
     }
 
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (results != null && !results.isEmpty()) {
+                ///tvResult.setText(results.get(0));
+                filterProducts(results.get(0));
+            }
+        }
+    }
+    private void startSpeechRecognition() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now...");
+
+        try {
+            startActivityForResult(intent, SPEECH_REQUEST_CODE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }
