@@ -45,7 +45,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
 
         holder.productName.setText(product.getName());
-        holder.productQuantity.setText("Quantity: " + product.getQuantity());
+        holder.productQuantity.setText("Quantity: " + currentTransaction.quantity);
         holder.productCost.setText("Cost: $" + product.getCost());
 
         holder.transactionDate.setText("Transaction Date: " + currentTransaction.Date);

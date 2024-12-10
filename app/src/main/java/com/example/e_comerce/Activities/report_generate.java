@@ -42,14 +42,7 @@ public class report_generate extends AppCompatActivity {
 
         DbAccsessTransaction dbAccsessTransaction=new DbAccsessTransaction(this);
 
-        dbAccsessTransaction.addTransaction(1,3,"2024-09-09",3);
-        dbAccsessTransaction.addTransaction(1,4,"2024-09-09",3);
-        dbAccsessTransaction.addTransaction(1,1,"2024-10-09",2);
-        dbAccsessTransaction.addTransaction(2,2,"2024-10-09",2);
-        dbAccsessTransaction.addTransaction(4,1,"2024-11-09",5);
-        dbAccsessTransaction.addTransaction(6,3,"2024-11-09",3);
-        dbAccsessTransaction.addTransaction(1,1,"2024-11-09",4);
-        dbAccsessTransaction.addTransaction(1,2,"2024-11-09",3);
+
 
         list_transaction=dbAccsessTransaction.getAllTransactions();
 

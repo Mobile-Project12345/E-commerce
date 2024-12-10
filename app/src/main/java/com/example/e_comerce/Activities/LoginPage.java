@@ -67,7 +67,8 @@ public class LoginPage extends AppCompatActivity {
             return insets;
         });
 
-
+       // DbAccsessTransaction dbAccsessTransaction=new DbAccsessTransaction(this);
+       // long x =dbAccsessTransaction.addTransaction(2,18,"2024-9-9",1);
         //Initialize credentials
         initializeRememberList();
         initializeUIComponents();

@@ -7,6 +7,7 @@ public class transaction {
 
     public String  CustomerEmail;
     public Product product=new Product();
+    public int quantity;
     public String Date;
 
 

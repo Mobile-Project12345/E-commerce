@@ -31,10 +31,12 @@ public class DbAccsessTransaction {
     public long addTransaction(int userId, int productId, String transactionDate, int quantity) {
 
 
+        int requiredQuntity=quantity;
+
         Product ProductInDataBase=new Product();
          DbAccessProduct dbAccessProduct=new DbAccessProduct(context);
         ProductInDataBase=dbAccessProduct.getProductById(productId);
-         if (ProductInDataBase.getQuantity()<quantity )
+         if (ProductInDataBase.getQuantity()<requiredQuntity )
              return -1;
 
 
@@ -103,7 +105,7 @@ public class DbAccsessTransaction {
 
             if (result>-1)
             {
-                int newQantity=ProductInDataBase.getQuantity()-quantity;
+                int newQantity=ProductInDataBase.getQuantity()-requiredQuntity;
                 ProductInDataBase.setQuantity(newQantity);
                 dbAccessProduct.UpdateProduct(ProductInDataBase);
             }
@@ -175,6 +177,7 @@ public class DbAccsessTransaction {
                 transactionData.CustomerEmail = (customer != null) ? customer.Email : "Unknown";
                 transactionData.Date = date;
                 transactionData.product = product;
+                transactionData.quantity=quantity;
 
                 // Add to list
                 transactionList.add(transactionData);
