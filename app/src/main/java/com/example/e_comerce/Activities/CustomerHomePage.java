@@ -58,6 +58,13 @@ public class CustomerHomePage extends AppCompatActivity {
             return insets;
         });
 
+        /// button to  go to view cart
+        Button viewCartButton = findViewById(R.id.viewCartButton);
+        viewCartButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CartActivity.class);
+            startActivity(intent);
+        });
+
         /// barcode
 
         Button btnbarcode=findViewById(R.id.barcode);
