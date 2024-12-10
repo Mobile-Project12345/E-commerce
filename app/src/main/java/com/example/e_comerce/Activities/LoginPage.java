@@ -66,6 +66,8 @@ public class LoginPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
         //Initialize credentials
         initializeRememberList();
         initializeUIComponents();

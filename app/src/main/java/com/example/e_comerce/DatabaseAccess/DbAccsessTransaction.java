@@ -30,6 +30,16 @@ public class DbAccsessTransaction {
     // Method to add a new transaction or update existing transaction
     public long addTransaction(int userId, int productId, String transactionDate, int quantity) {
 
+
+        Product ProductInDataBase=new Product();
+         DbAccessProduct dbAccessProduct=new DbAccessProduct(context);
+        ProductInDataBase=dbAccessProduct.getProductById(productId);
+         if (ProductInDataBase.getQuantity()<quantity )
+             return -1;
+
+
+
+
         try {
             // Open the database in write mode
             db = transactionDatabase.getWritableDatabase();
@@ -90,6 +100,13 @@ public class DbAccsessTransaction {
                 }
             }
 
+
+            if (result>-1)
+            {
+                int newQantity=ProductInDataBase.getQuantity()-quantity;
+                ProductInDataBase.setQuantity(newQantity);
+                dbAccessProduct.UpdateProduct(ProductInDataBase);
+            }
             return result;
         } catch (Exception e) {
             Log.e(TAG, "Error processing transaction", e);
