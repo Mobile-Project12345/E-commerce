@@ -1,6 +1,7 @@
 package com.example.e_comerce.JavaClasses;
 
 public class Customer extends User {
+    public  int id;
     public date dateOfBirth;
 
 

@@ -190,12 +190,12 @@ public class LoginPage extends AppCompatActivity {
         }
     }
 
-
     private void navigateToHomePage(int selectedId) {
         Intent intent;
         if (selectedId == R.id.CustomerRadioButton) {
             intent = new Intent(this, CustomerHomePage.class);
             intent.putExtra("loggedInUser", loggedInUser);
+
         } else {
             intent = new Intent(this, AdminHomePage.class);
             intent.putExtra("loggedInUser", loggedInUser);

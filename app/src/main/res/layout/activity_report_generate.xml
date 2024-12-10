@@ -14,7 +14,7 @@ tools:context=".Activities.report_generate">
         android:hint="date(yyyy-mm-dd) like 2024-01-09"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
+        android:inputType="text"
         android:id="@+id/date"/>
 
     <Button

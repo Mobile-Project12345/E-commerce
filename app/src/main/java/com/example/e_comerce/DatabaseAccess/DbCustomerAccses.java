@@ -107,6 +107,7 @@ public class DbCustomerAccses extends DbUserAccses {
         Customer customer = null;
 
         if (cursor.moveToFirst()) {
+            int userId = cursor.getInt(cursor.getColumnIndexOrThrow(CustomerDatabase.COLUMN_ID));
             String username = cursor.getString(cursor.getColumnIndexOrThrow(CustomerDatabase.COLUMN_USERNAME));
             String birthdateStr = cursor.getString(cursor.getColumnIndexOrThrow(CustomerDatabase.COLUMN_BIRTHDATE));
 
@@ -120,10 +121,12 @@ public class DbCustomerAccses extends DbUserAccses {
             date birthdate = new date(day, month, year);
 
             customer = new Customer(username, email, password, birthdate);
+            customer.id = userId;
+            // Set the actual user ID from the database
         }
 
-        cursor.close();
-        db.close();
+        cursor.close(); // Important: close the cursor to free up resources
+        db.close(); // Close the database connection
 
         return customer;
     }

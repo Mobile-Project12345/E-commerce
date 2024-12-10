@@ -25,8 +25,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.e_comerce.DatabaseAccess.DbAccsessCategory;
+import com.example.e_comerce.JavaClasses.Admin;
 import com.example.e_comerce.JavaClasses.Category;
 import com.example.e_comerce.JavaClasses.CategoryAdapter;
+import com.example.e_comerce.JavaClasses.Customer;
 import com.example.e_comerce.JavaClasses.Product;
 import com.example.e_comerce.JavaClasses.ProductAdapter;
 import com.example.e_comerce.R;
@@ -44,7 +46,7 @@ public class CustomerHomePage extends AppCompatActivity {
     private ProductAdapter productAdapter;
     private List<Category> ListOfCateogry;
     private EditText searchEditText;
-
+    Customer loggedInUser;
     private static final int SPEECH_REQUEST_CODE = 10;
 
     @Override
@@ -58,11 +60,15 @@ public class CustomerHomePage extends AppCompatActivity {
             return insets;
         });
 
+         loggedInUser = (Customer) getIntent().getSerializableExtra("loggedInUser"); // Note: changed from "loggedInUser" to match the sender
+
         /// button to  go to view cart
         Button viewCartButton = findViewById(R.id.viewCartButton);
         viewCartButton.setOnClickListener(v -> {
             Intent intent = new Intent(this, CartActivity.class);
+            intent.putExtra("loggedInUser", loggedInUser);
             startActivity(intent);
+
         });
 
         /// barcode
