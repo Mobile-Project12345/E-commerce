@@ -67,10 +67,14 @@ Customer loggedInUser;
 
                     DbAccsessTransaction trans = new DbAccsessTransaction(this);
                     String date=getCurrentDate();
-                    if (trans.addTransaction(loggedInUser.id, cartItems.get(i).Id, getCurrentDate(), 1000000)==-1)
+                    int s=cartItems.get(i).getQuantity();
+                    if (trans.addTransaction(loggedInUser.id, cartItems.get(i).Id, getCurrentDate(), cartItems.get(i).getQuantity())==-1)
                     {
-                        Toast.makeText(this, "Their is only "+ cartItems.get(i).getQuantity()+" product of " +cartItems.get(i).getName()+" in Stock", Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(this, "Their is no enough product item for " +cartItems.get(i).getName()+" in Stock", Toast.LENGTH_SHORT).show();
                         TransactionDone=false;
+
+
                     }
                 }
               //  2024-10-12
