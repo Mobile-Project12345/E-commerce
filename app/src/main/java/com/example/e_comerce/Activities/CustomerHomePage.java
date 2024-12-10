@@ -1,10 +1,12 @@
 package com.example.e_comerce.Activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -48,6 +50,11 @@ public class CustomerHomePage extends AppCompatActivity {
         });
 
 
+        Button viewCartButton = findViewById(R.id.viewCartButton);
+        viewCartButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CartActivity.class);
+            startActivity(intent);
+        });
 
         RecyclerView categoryRecyclerView = findViewById(R.id.categoryRecyclerView);
         productListView = findViewById(R.id.productListView);
@@ -116,6 +123,7 @@ public class CustomerHomePage extends AppCompatActivity {
                 }
             }
         }
+
 
         updateProductList(filteredProducts); // Update the ListView with filtered results
     }

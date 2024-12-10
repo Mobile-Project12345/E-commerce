@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.e_comerce.R;
 
@@ -45,7 +46,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         // Handle Add to Cart button (this example doesn't have functionality)
         addToCartButton.setOnClickListener(v -> {
-            // Implement the action when Add to Cart is clicked (e.g., add to cart logic)
+            CartManager.getInstance().addToCart(product); // Add the product to the shared cart
+            Toast.makeText(context, product.getName() + " added to cart", Toast.LENGTH_SHORT).show();
         });
 
         return convertView;

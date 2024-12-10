@@ -16,6 +16,10 @@
         android:theme="@style/Theme.E_comerce"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.CartActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".Activities.EditProduct"
             android:exported="false" />
         <activity
