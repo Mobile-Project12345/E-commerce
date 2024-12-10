@@ -36,12 +36,14 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         ImageView productImage = convertView.findViewById(R.id.productImage);
         TextView productTitle = convertView.findViewById(R.id.productTitle);
         TextView productPrice = convertView.findViewById(R.id.productPrice);
+        TextView productqun = convertView.findViewById(R.id.productquantity);
         Button addToCartButton = convertView.findViewById(R.id.addToCartButton);
 
         // Set values from the product object to the views
         productImage.setImageBitmap(product.getImage());  // Set Bitmap image
         productTitle.setText(product.getName());  // Set product name
         productPrice.setText(String.format("$%.2f", product.getCost()));  // Set price
+        productqun.setText(String.valueOf(product.getQuantity()));
 
         // Handle Add to Cart button (this example doesn't have functionality)
         addToCartButton.setOnClickListener(v -> {
