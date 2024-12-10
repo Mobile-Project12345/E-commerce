@@ -46,7 +46,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         // Handle Add to Cart button (this example doesn't have functionality)
         addToCartButton.setOnClickListener(v -> {
-            CartManager.getInstance().addToCart(product); // Add the product to the shared cart
+            CartManager.getInstance().addToCart(product); // Add or update quantity
             Toast.makeText(context, product.getName() + " added to cart", Toast.LENGTH_SHORT).show();
         });
 
