@@ -1,10 +1,12 @@
 package com.example.e_comerce.Activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -20,6 +22,7 @@ import com.example.e_comerce.JavaClasses.Category;
 import com.example.e_comerce.JavaClasses.CategoryAdapter;
 import com.example.e_comerce.JavaClasses.Product;
 import com.example.e_comerce.JavaClasses.ProductAdapter;
+import com.example.e_comerce.JavaClasses.ShoppingCartManager;
 import com.example.e_comerce.R;
 
 import java.util.ArrayList;
@@ -27,12 +30,12 @@ import java.util.List;
 
 public class CustomerHomePage extends AppCompatActivity {
 
-
-
     private ListView productListView;
     private ProductAdapter productAdapter;
     private List<Category> ListOfCateogry;
     private EditText searchEditText;
+    private Button viewCartButton; // تعريف الزر
+    private ShoppingCartManager shoppingCartManager;  // إضافة ShoppingCartManager
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +48,20 @@ public class CustomerHomePage extends AppCompatActivity {
             return insets;
         });
 
+        // ربط المكونات في الصفحة
         RecyclerView categoryRecyclerView = findViewById(R.id.categoryRecyclerView);
         productListView = findViewById(R.id.productListView);
         searchEditText = findViewById(R.id.searchEditText);
+        viewCartButton = findViewById(R.id.viewCartButton);  // ربط الزر
+
+        // تعيين مستمع للنقر على زر "View Cart"
+        viewCartButton.setOnClickListener(v -> {
+            Intent intent = new Intent(CustomerHomePage.this, ShoppingCartActivity.class);
+            startActivity(intent); // الانتقال إلى صفحة السلة
+        });
+
+        // Initialize ShoppingCartManager (تأكد من أنك تستخدم كائن واحد فقط)
+        shoppingCartManager = new ShoppingCartManager(this);
 
         // Initialize category and product images
         Bitmap bitmapcat1book = BitmapFactory.decodeResource(getResources(), R.drawable.books);
@@ -119,7 +133,8 @@ public class CustomerHomePage extends AppCompatActivity {
 
     // Update the product list in the ListView
     private void updateProductList(List<Product> products) {
-        productAdapter = new ProductAdapter(this, products);
+        // Pass shoppingCartManager to the adapter
+        productAdapter = new ProductAdapter(this, products, shoppingCartManager);
         productListView.setAdapter(productAdapter);
     }
 
@@ -137,6 +152,4 @@ public class CustomerHomePage extends AppCompatActivity {
 
         updateProductList(filteredProducts); // Update the ListView with filtered results
     }
-
-
 }

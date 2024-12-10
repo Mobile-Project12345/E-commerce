@@ -4,58 +4,69 @@ import android.graphics.Bitmap;
 
 public class Product {
 
-    public String Name;
-    public Double Cost;
-    public int Quantity;
-    public int Id;
-    public Bitmap Image;  // Store the image as Bitmap
+    private String name;
+    private double cost;
+    private int quantity;
+    private int id;
+    private Bitmap image;  // Store the image as Bitmap
 
     // Constructor to initialize all fields
-    public Product(int Id, String Name, Double Cost, int Quantity, Bitmap Image) {
-        this.Id = Id;
-        this.Name = Name;
-        this.Cost = Cost;
-        this.Quantity = Quantity;
-        this.Image = Image;
+    public Product(int id, String name, double cost, int quantity, Bitmap image) {
+        this.id = id;
+        this.name = name;
+        this.cost = cost;
+        this.quantity = quantity;
+        this.image = image;
     }
 
+    // Getter and Setter methods
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public Double getCost() {
-        return Cost;
+    public double getCost() {
+        return cost;
     }
 
-    public void setCost(Double cost) {
-        Cost = cost;
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 
     public int getQuantity() {
-        return Quantity;
+        return quantity;
     }
 
     public void setQuantity(int quantity) {
-        Quantity = quantity;
+        this.quantity = quantity;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public Bitmap getImage() {
-        return Image;
+        return image;
     }
 
     public void setImage(Bitmap image) {
-        Image = image;
+        this.image = image;
+    }
+
+    // Optional: Resize image to a smaller size (useful for large images)
+    public Bitmap resizeImage(int maxWidth, int maxHeight) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        float ratio = Math.min((float) maxWidth / width, (float) maxHeight / height);
+        int newWidth = Math.round(ratio * width);
+        int newHeight = Math.round(ratio * height);
+        return Bitmap.createScaledBitmap(image, newWidth, newHeight, false);
     }
 }
