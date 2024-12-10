@@ -334,4 +334,41 @@ public class DbAccsessCategory {
             return false;
         }
     }
+
+
+
+    public int updateCategory(Category updatedCategory) {
+        try {
+            // Open the database in write mode
+            db = categoryDatabase.getWritableDatabase();
+
+            // Prepare content values
+            ContentValues values = new ContentValues();
+            values.put(CategoryDatabase.COLUMN_NAME, updatedCategory.name);
+
+            // Convert bitmap to byte array
+            byte[] imageBytes = bitmapToByteArray(updatedCategory.imageBitmap);
+            values.put(CategoryDatabase.COLUMN_IMAGE, imageBytes);
+
+            // Update the category where ID matches
+            int rowsAffected = db.update(
+                    CategoryDatabase.TABLE_CATEGORIES,  // Table name
+                    values,                             // New values
+                    CategoryDatabase.COLUMN_ID + " = ?", // Where clause
+                    new String[]{String.valueOf(updatedCategory.id)} // Where arguments
+            );
+
+            Log.d(TAG, "Category updated. Rows affected: " + rowsAffected);
+            return rowsAffected;
+
+        } catch (Exception e) {
+            Log.e(TAG, "Error updating category", e);
+            return 0;
+        } finally {
+            // Close the database
+            if (db != null && db.isOpen()) {
+                db.close();
+            }
+        }
+    }
 }
