@@ -27,6 +27,7 @@ import com.example.e_comerce.JavaClasses.Product;
 import com.example.e_comerce.JavaClasses.ProductAdapter;
 import com.example.e_comerce.JavaClasses.admin_prduct_Adapter;
 import com.example.e_comerce.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,38 +57,10 @@ DbAccsessCategory dbAccessProduct;
 
         ListOfCateogry=  dbAccessProduct.getAllCategoriesWithProducts();
 
-
-        addProduct=findViewById(R.id.Add_product);
-
-        genreatereport=findViewById(R.id.generate_report);
-
-        genreatereport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent rep_intent = new Intent(AdminHomePage.this, report_generate.class);
-                startActivity(rep_intent);
-                //finish();
-            }
-        });
-
-        addProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent man_intent = new Intent(AdminHomePage.this, AddProduct.class);
-                startActivity(man_intent);
-                //finish();
-            }
-        });
-        /////manage category layout
-        Button mangecat=findViewById(R.id.manage_category);
-
-        mangecat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent man_intent = new Intent(AdminHomePage.this, ManageCateogry.class);
-                startActivity(man_intent);
-                //finish();
-            }
+        FloatingActionButton fabActions = findViewById(R.id.fab_actions);
+        fabActions.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminHomePage.this, AdminFeature.class);
+            startActivity(intent);
         });
 
 

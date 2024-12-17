@@ -39,6 +39,15 @@
     </LinearLayout>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Category"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="20dp"
@@ -49,6 +58,17 @@
         android:clipToPadding="false"/>
 
     <!-- ListView for products -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Products List"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/productListView"
         android:layout_width="match_parent"
@@ -58,18 +78,15 @@
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp" />
 
-    <Button
-        android:id="@+id/viewCartButton"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        android:id="@+id/fab_actions"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:padding="12dp"
-        android:textSize="16sp"
-        android:backgroundTint="#2196F3"
-        android:textColor="@android:color/white"
-        android:text="View Cart" />
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/cart_icon"
+        app:backgroundTint="@android:color/holo_blue_bright"
+        app:fabSize="normal" />
 
 </LinearLayout>

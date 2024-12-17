@@ -71,8 +71,7 @@ public class report_generate extends AppCompatActivity {
                 TransactionAdapter adapter = new TransactionAdapter(report_generate.this, list_transaction_display);
                 recyclerView.setLayoutManager(new LinearLayoutManager(report_generate.this));
                 recyclerView.setAdapter(adapter);
-
-
+                int x=500;
 
             }
         });

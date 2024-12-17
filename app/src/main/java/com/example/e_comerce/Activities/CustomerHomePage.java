@@ -32,6 +32,7 @@ import com.example.e_comerce.JavaClasses.Customer;
 import com.example.e_comerce.JavaClasses.Product;
 import com.example.e_comerce.JavaClasses.ProductAdapter;
 import com.example.e_comerce.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.journeyapps.barcodescanner.CaptureActivity;
 
 import java.util.ArrayList;
@@ -62,13 +63,12 @@ public class CustomerHomePage extends AppCompatActivity {
 
          loggedInUser = (Customer) getIntent().getSerializableExtra("loggedInUser"); // Note: changed from "loggedInUser" to match the sender
 
-        /// button to  go to view cart
-        Button viewCartButton = findViewById(R.id.viewCartButton);
-        viewCartButton.setOnClickListener(v -> {
+        FloatingActionButton fabActions = findViewById(R.id.fab_actions);
+        fabActions.setOnClickListener(v -> {
+
             Intent intent = new Intent(this, CartActivity.class);
             intent.putExtra("loggedInUser", loggedInUser);
             startActivity(intent);
-
         });
 
         /// barcode
